@@ -4,10 +4,11 @@ from const import *
 # Titre de l'application
 st.title('Tarifs des Villes')
 
-# Affichage du listing des villes et tarifs
-# st.subheader('Liste des villes et leurs tarifs')
-# for ville, tarif in villes_tarifs.items():
-#     st.write(f"{ville}: {tarif} €")
+# Bouton pour afficher la liste des tarifs 
+if st.button('Afficher la liste des tarifs'): 
+    st.subheader('Liste des villes et leurs tarifs') 
+    for ville, tarif in villes_tarifs.items(): 
+        st.write(f"{ville}: {tarif} €")
 
 # Entrée du nom de la ville
 nom_ville = st.text_input("Entrez le nom de la ville pour obtenir le tarif:")
