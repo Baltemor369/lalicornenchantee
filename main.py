@@ -1,4 +1,5 @@
 import streamlit as st
+import geopy
 from const import *
 
 # Titre de l'application
