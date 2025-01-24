@@ -1,6 +1,26 @@
 import streamlit as st
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
+import base64
+
+# Fonction pour ajouter l'image de fond locale
+def add_bg_from_local(image_file):
+    with open(image_file, "rb") as file:
+        encoded_string = base64.b64encode(file.read())
+    st.markdown(
+         f"""
+         <style>
+         .stApp {{
+             background-image: url(data:image/jpg;base64,{encoded_string.decode()});
+             background-size: cover
+         }}
+         </style>
+         """,
+         unsafe_allow_html=True
+     )
+
+# Appel de la fonction avec l'image locale
+add_bg_from_local("bg.png")
 
 # rayon premier cercle : 25km
 # rayon deuxième cercle : 50km
@@ -24,15 +44,13 @@ nom_ville = st.text_input("Entrez le nom de la ville pour obtenir le tarif:")
 
 if nom_ville:
     # Géocoder la ville pour obtenir ses coordonnées
-    location = geolocator.geocode(nom_ville)    
+    location = geolocator.geocode(nom_ville)
     if location:
         coord_ville = (location.latitude, location.longitude)
         
         # Calculer les distances
         distance1 = geodesic(coord_ville, Centre1).km
         distance2 = geodesic(coord_ville, Centre2).km
-        # st.write(f"Distance jusqu'à Centre1: {distance1:.2f} km")
-        # st.write(f"Distance jusqu'à Centre2: {distance2:.2f} km")
         
         if nom_ville.lower() == "luxembourg":
             tarif = 70 
