@@ -12,7 +12,7 @@ def add_bg_from_local(image_file):
          <style>
          .stApp {{
              background-image: url(data:image/jpg;base64,{encoded_string.decode()});
-             background-size: cover
+             background-size: cover;
          }}
          </style>
          """,
@@ -21,6 +21,7 @@ def add_bg_from_local(image_file):
 
 # Appel de la fonction avec l'image locale
 add_bg_from_local("bg.png")
+
 
 # rayon premier cercle : 25km
 # rayon deuxième cercle : 50km
@@ -53,7 +54,7 @@ if nom_ville:
         distance2 = geodesic(coord_ville, Centre2).km
         
         if nom_ville.lower() == "luxembourg":
-            tarif = 70 
+            tarif = 75
         else:
             tarif = 0
             if distance1 <= 25 or distance2 <= 25:
