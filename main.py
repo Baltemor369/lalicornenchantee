@@ -2,6 +2,7 @@ import streamlit as st
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 import base64
+import time
 
 # Fonction pour ajouter l'image de fond locale
 def add_bg_from_local(image_file):
@@ -28,7 +29,7 @@ add_bg_from_local("bg.png")
 # rayon troisième cercle : 75km
 # rayon quatrième cercle : 100km
 
-geolocator = Nominatim(user_agent="equiconfort")
+geolocator = Nominatim(user_agent="lalicornenchantee")
 
 # Coordonnées des centres
 _ = geolocator.geocode("flavigny, 57130, France")
@@ -45,7 +46,13 @@ nom_ville = st.text_input("Entrez le nom de la ville pour obtenir le tarif:")
 
 if nom_ville:
     # Géocoder la ville pour obtenir ses coordonnées
-    location = geolocator.geocode(nom_ville)
+    try:
+        time.sleep(1)
+        location = geolocator.geocode(nom_ville)
+    except Exception as e:
+        st.write("Erreur lors du géocodage:", e)
+        location = None
+
     if location:
         coord_ville = (location.latitude, location.longitude)
         
