@@ -40,8 +40,10 @@ except:
 st.title('Equiselle - Tarif')
 
 # Entrée du nom de la ville
+st.markdown(f'<div style="background-color: rgba(255, 255, 255, 0.8);">', unsafe_allow_html=True)
 nom_ville = st.text_input("Entrez le nom de la ville pour obtenir le tarif:")
-st.markdown(f'<div class="text-background">Pour plus de précisions, ajoutez le code postal.</div>', unsafe_allow_html=True)
+st.write("Pour plus de précisions, ajoutez le code postal.")
+st.markdown('</div>', unsafe_allow_html=True)
 
 if nom_ville:
     # Géocoder la ville pour obtenir ses coordonnées
