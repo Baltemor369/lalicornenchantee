@@ -2,6 +2,8 @@ import streamlit as st
 from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 import base64
+import time
+import threading
 
 # Fonction pour ajouter l'image de fond locale
 def add_bg_from_local(image_file):
@@ -21,12 +23,6 @@ def add_bg_from_local(image_file):
 
 # Appel de la fonction avec l'image locale
 add_bg_from_local("bg.png")
-
-
-# rayon premier cercle : 25km
-# rayon deuxième cercle : 50km
-# rayon troisième cercle : 75km
-# rayon quatrième cercle : 100km
 
 geolocator = Nominatim(user_agent="equiconfort")
 
@@ -71,3 +67,14 @@ if nom_ville:
         st.write(f"Le tarif pour {nom_ville.capitalize()} est: {tarif} €")
     else:
         st.write("Impossible de géocoder la ville. Veuillez vérifier l'orthographe.")
+
+# Fonction qui garde l'application éveillée
+def keep_awake():
+    while True:
+        time.sleep(60)
+        print("L'application est toujours active...")
+
+# Créer et démarrer le thread
+thread = threading.Thread(target=keep_awake)
+thread.daemon = True  # Permet au thread de s'arrêter lorsque l'application principale se termine
+thread.start()
