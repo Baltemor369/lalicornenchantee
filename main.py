@@ -16,11 +16,6 @@ def add_bg_from_local(image_file):
              background-image: url(data:image/jpg;base64,{encoded_string.decode()});
              background-size: cover;
          }}
-         .text-background {{
-             background-color: rgba(255, 255, 255, 0.8);
-             padding: 10px;
-             border-radius: 5px;
-         }}
          </style>
          """,
          unsafe_allow_html=True
@@ -79,7 +74,7 @@ if nom_ville:
             else:
                 tarif = "À négocier"
             
-        st.markdown(f'<div class="text-background">Le tarif pour {nom_ville.capitalize()} est: {tarif} €</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style=" background-color: rgba(255, 255, 255, 0.8);">Le tarif pour {nom_ville.capitalize()} est: {tarif} €</div>', unsafe_allow_html=True)
     else:
         st.write("Impossible de géocoder la ville. Veuillez vérifier l'orthographe.")
 
