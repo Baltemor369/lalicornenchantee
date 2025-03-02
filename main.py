@@ -46,8 +46,11 @@ st.markdown("<div style='background-color: rgba(255, 255, 255, 0.8);'>Pour plus 
 if nom_ville:
     # Géocoder la ville pour obtenir ses coordonnées
     try:
-        time.sleep(1)
-        location = geolocator.geocode(nom_ville)
+        time.sleep(2)
+        try:
+            location = geolocator.geocode(nom_ville)
+        except:
+            st.write("Error : problème lors de la localisation, actualisez la page et réessayer.")
     except Exception as e:
         st.write("Erreur lors du géocodage:", e)
         location = None
