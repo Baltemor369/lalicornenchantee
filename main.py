@@ -3,10 +3,7 @@ from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 import base64
 import time
-<<<<<<< HEAD
 import threading
-=======
->>>>>>> 2134b6537cfb1325cc6adeff387be25004ac9c85
 
 # Fonction pour ajouter l'image de fond locale
 def add_bg_from_local(image_file):
@@ -27,30 +24,24 @@ def add_bg_from_local(image_file):
 # Appel de la fonction avec l'image locale
 add_bg_from_local("bg.png")
 
-<<<<<<< HEAD
 geolocator = Nominatim(user_agent="equiconfort")
-=======
-
-# rayon premier cercle : 25km
-# rayon deuxième cercle : 50km
-# rayon troisième cercle : 75km
-# rayon quatrième cercle : 100km
-
-geolocator = Nominatim(user_agent="lalicornenchantee")
->>>>>>> 2134b6537cfb1325cc6adeff387be25004ac9c85
 
 # Coordonnées des centres
-_ = geolocator.geocode("flavigny, 57130, France")
-Centre1 = (_.latitude, _.longitude)
+try:
+    _ = geolocator.geocode("flavigny, 57130, France")
+    Centre1 = (_.latitude, _.longitude)
 
-_ = geolocator.geocode("hablainville, 54120, France")
-Centre2 = (_.latitude, _.longitude)
+    _ = geolocator.geocode("hablainville, 54120, France")
+    Centre2 = (_.latitude, _.longitude)
+except:
+    st.write("Erreur lors du géocodage:")
 
 # Titre de l'application
 st.title('Equiselle - Tarif')
 
 # Entrée du nom de la ville
 nom_ville = st.text_input("Entrez le nom de la ville pour obtenir le tarif:")
+st.write("Pour plus de précisions, ajoutez le code postal.")
 
 if nom_ville:
     # Géocoder la ville pour obtenir ses coordonnées
