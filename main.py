@@ -77,7 +77,7 @@ if nom_ville:
             else:
                 tarif = "À négocier"
             
-        st.markdown(f'<div style=" background-color: rgba(68, 124, 193, 0.8);">Le tarif pour {nom_ville.capitalize()} est: {tarif} €</div>', unsafe_allow_html=True)
+        st.markdown(f'<div style="background-color: rgba(255, 255, 255, 0.8);color rgb(0,0,0)">Le tarif pour {nom_ville.capitalize()} est: {tarif} €</div>', unsafe_allow_html=True)
     else:
         st.write("Impossible de géocoder la ville. Veuillez vérifier l'orthographe.")
 
