@@ -5,6 +5,9 @@ import base64
 import time
 import threading
 
+DATE = "07/09/2025"
+VERSION = "v2.0"
+
 # Fonction pour ajouter l'image de fond locale
 def add_bg_from_local(image_file):
     with open(image_file, "rb") as file:
@@ -39,7 +42,7 @@ def styled_text(content):
         unsafe_allow_html=True
     )
 
-def footer_info(version="v2.0", date="07/09/2025", auteur="Baltemor369"):
+def footer_info():
     st.markdown(
         f"""
         <div style="
@@ -55,7 +58,7 @@ def footer_info(version="v2.0", date="07/09/2025", auteur="Baltemor369"):
             color: #333;
             box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
         ">
-            Version : {version} | Dernière mise à jour : {date} | ©equiselle54
+            Version : {VERSION} | Dernière mise à jour : {DATE} | ©equiselle54
         </div>
         """,
         unsafe_allow_html=True
