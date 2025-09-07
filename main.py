@@ -39,6 +39,28 @@ def styled_text(content):
         unsafe_allow_html=True
     )
 
+def footer_info(version="v2.0", date="07/09/2025", auteur="Baltemor369"):
+    st.markdown(
+        f"""
+        <div style="
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 8px;
+            text-align: center;
+            font-size: 14px;
+            font-family: 'Segoe UI', sans-serif;
+            color: #333;
+            box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
+        ">
+            Version : {version} | Dernière mise à jour : {date} | ©equiselle54
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 
 # Appel de la fonction avec l'image locale
 add_bg_from_local("bg.png")
@@ -100,6 +122,8 @@ if nom_ville:
             styled_text(f'<div style="background-color: rgba(255, 255, 255, 0.8);color rgb(0,0,0)">Le tarif pour {nom_ville.capitalize()} est: {tarif} €</div>')
         else:
             styled_text("Impossible de géocoder la ville.")
+
+footer_info()
 
 # Fonction qui garde l'application éveillée
 def keep_awake():
