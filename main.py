@@ -20,6 +20,25 @@ def add_bg_from_local(image_file):
          """,
          unsafe_allow_html=True
      )
+    
+def styled_text(content):
+    st.markdown(
+        f"""
+        <div style="
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            color: #000000;
+            font-size: 18px;
+            font-family: 'Segoe UI', sans-serif;
+        ">
+            {content}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
 
 # Appel de la fonction avec l'image locale
 add_bg_from_local("bg.png")
@@ -30,56 +49,57 @@ geolocator = Nominatim(user_agent="equiconfort")
 try:
     _ = geolocator.geocode("flavigny, 57130, France")
     Centre1 = (_.latitude, _.longitude)
-
-    _ = geolocator.geocode("hablainville, 54120, France")
-    Centre2 = (_.latitude, _.longitude)
 except:
-    st.write("Erreur lors du géocodage:")
+    styled_text("Erreur lors du géocodage:")
 
 # Titre de l'application
-st.title('Equiselle - Tarif')
+styled_text('Equiselle - Tarif')
 
 # Entrée du nom de la ville
-nom_ville = st.text_input("Entrez le nom de la ville pour obtenir le tarif:")
-st.markdown("<div style='background-color: rgba(68, 124, 193, 0.8);'>Pour plus de précisions, ajoutez le code postal.</div>", unsafe_allow_html=True)
-
+nom_ville = st.text_input("town_name","Saisir le nom de la ville ici", label_visibility="hidden")
+btn = st.button("Calculer")
+styled_text("Pour plus de précisions, ajoutez le code postal.</div>")
 if nom_ville:
-    # Géocoder la ville pour obtenir ses coordonnées
-    try:
-        time.sleep(2)
+    if btn or nom_ville != "Saisir le nom de la ville ici":
+        # Géocoder la ville pour obtenir ses coordonnées
         try:
-            location = geolocator.geocode(nom_ville)
-        except:
-            st.write("Error : problème lors de la localisation, actualisez la page et réessayer.")
-    except Exception as e:
-        st.write("Erreur lors du géocodage:", e)
-        location = None
+            time.sleep(2)
+            try:
+                location = geolocator.geocode(nom_ville)
+            except:
+                styled_text("Error : problème lors de la localisation, actualisez la page et réessayer.")
+        except Exception as e:
+            styled_text("Erreur lors du géocodage:", e)
+            location = None
 
-    if location:
-        coord_ville = (location.latitude, location.longitude)
-        
-        # Calculer les distances
-        distance1 = geodesic(coord_ville, Centre1).km
-        distance2 = geodesic(coord_ville, Centre2).km
-        
-        if nom_ville.lower() == "luxembourg":
-            tarif = 75
-        else:
-            tarif = 0
-            if distance1 <= 25 or distance2 <= 25:
-                tarif = 60
-            elif distance1 <= 50 or distance2 <= 50:
-                tarif = 65
-            elif distance1 <= 75 or distance2 <= 75:
-                tarif = 70
-            elif distance2 <= 110:
+        if location:
+            coord_ville = (location.latitude, location.longitude)
+            
+            # Calculer les distances
+            distance1 = geodesic(coord_ville, Centre1).km
+            
+            if nom_ville.lower() == "luxembourg":
                 tarif = 75
             else:
-                tarif = "À négocier"
-            
-        st.markdown(f'<div style="background-color: rgba(255, 255, 255, 0.8);color rgb(0,0,0)">Le tarif pour {nom_ville.capitalize()} est: {tarif} €</div>', unsafe_allow_html=True)
-    else:
-        st.write("Impossible de géocoder la ville. Veuillez vérifier l'orthographe.")
+                tarif = 0
+                if distance1 <= 25:
+                    tarif = 60
+                elif distance1 <= 50:
+                    tarif = 65
+                elif distance1 <= 75:
+                    tarif = 70
+                elif distance1 <= 100:
+                    tarif = 75
+                elif distance1 <= 125:
+                    tarif = 80
+                elif distance1 <= 150:
+                    tarif = 85
+                else:
+                    tarif = "À négocier"
+                
+            styled_text(f'<div style="background-color: rgba(255, 255, 255, 0.8);color rgb(0,0,0)">Le tarif pour {nom_ville.capitalize()} est: {tarif} €</div>')
+        else:
+            styled_text("Impossible de géocoder la ville.")
 
 # Fonction qui garde l'application éveillée
 def keep_awake():
