@@ -75,7 +75,7 @@ try:
     _ = geolocator.geocode("flavigny, 57130, France")
     Centre1 = (_.latitude, _.longitude)
 except:
-    styled_text("Erreur lors du géocodage:")
+    styled_text("Erreur lors du géocodage")
 
 # Titre de l'application
 styled_text('Equiselle - Tarif')
