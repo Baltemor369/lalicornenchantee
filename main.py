@@ -3,10 +3,11 @@ from geopy.geocoders import Nominatim
 from geopy.distance import geodesic
 import base64
 import time
-import threading
 
 DATE = "07/09/2025"
 VERSION = "v2.0"
+BASE_PRICE = 70
+OUT_PRICE = 100
 
 # Fonction pour ajouter l'image de fond locale
 def add_bg_from_local(image_file):
@@ -108,33 +109,22 @@ if nom_ville:
             else:
                 tarif = 0
                 if distance1 <= 25:
-                    tarif = 60
+                    tarif = BASE_PRICE
                 elif distance1 <= 50:
-                    tarif = 65
+                    tarif = BASE_PRICE + 5 *1
                 elif distance1 <= 75:
-                    tarif = 70
+                    tarif = BASE_PRICE + 5 *2
                 elif distance1 <= 100:
-                    tarif = 75
+                    tarif = BASE_PRICE + 5 *3
                 elif distance1 <= 125:
-                    tarif = 80
+                    tarif = BASE_PRICE + 5 *4
                 elif distance1 <= 150:
-                    tarif = 85
+                    tarif = BASE_PRICE + 5 *5
                 else:
-                    tarif = "À négocier"
+                    tarif = OUT_PRICE
                 
             styled_text(f'<div style="background-color: rgba(255, 255, 255, 0.8);color rgb(0,0,0)">Le tarif pour {nom_ville.capitalize()} est: {tarif} €</div>')
         else:
             styled_text("Impossible de géocoder la ville.")
 
 footer_info()
-
-# Fonction qui garde l'application éveillée
-def keep_awake():
-    while True:
-        time.sleep(60)
-        print("L'application est toujours active...")
-
-# Créer et démarrer le thread
-thread = threading.Thread(target=keep_awake)
-thread.daemon = True  # Permet au thread de s'arrêter lorsque l'application principale se termine
-thread.start()
