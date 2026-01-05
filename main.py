@@ -5,7 +5,7 @@ import base64
 import time
 
 DATE = "07/09/2025"
-VERSION = "v2.0"
+VERSION = "2.1.0"
 BASE_PRICE = 70
 OUT_PRICE = 100
 
@@ -59,7 +59,7 @@ def footer_info():
             color: #333;
             box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
         ">
-            Version : {VERSION} | Dernière mise à jour : {DATE} | ©equiselle54
+            Version : v{VERSION} | Dernière mise à jour : {DATE} | ©equiselle54
         </div>
         """,
         unsafe_allow_html=True
