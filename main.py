@@ -4,7 +4,7 @@ from geopy.distance import geodesic
 import base64
 import time
 
-DATE = "07/09/2025"
+DATE = "05/01/2026"
 VERSION = "2.1.0"
 BASE_PRICE = 70
 OUT_PRICE = 100
