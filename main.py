@@ -4,10 +4,11 @@ from geopy.distance import geodesic
 import base64
 import time
 
-DATE = "05/01/2026"
-VERSION = "2.1.0"
+DATE = "16/01/2026"
+VERSION = "2.2.0"
 BASE_PRICE = 70
 OUT_PRICE = 100
+debug = False
 
 # Fonction pour ajouter l'image de fond locale
 def add_bg_from_local(image_file):
@@ -75,6 +76,10 @@ geolocator = Nominatim(user_agent="equiconfort")
 try:
     _ = geolocator.geocode("flavigny, 57130, France")
     Centre1 = (_.latitude, _.longitude)
+
+    _ = geolocator.geocode("hablainville, 54120, France")
+    Centre2 = (_.latitude, _.longitude)
+
 except:
     styled_text("Erreur lors du géocodage")
 
@@ -103,9 +108,13 @@ if nom_ville:
             
             # Calculer les distances
             distance1 = geodesic(coord_ville, Centre1).km
+            distance2 = geodesic(coord_ville, Centre2).km
+            if debug:
+                styled_text(f"dist1 = {distance1}")
+                styled_text(f"dist2 = {distance2}")
             
             if nom_ville.lower() == "luxembourg":
-                tarif = 75
+                tarif = 90
             else:
                 tarif = 0
                 if distance1 <= 25:
@@ -114,11 +123,11 @@ if nom_ville:
                     tarif = BASE_PRICE + 5 *1
                 elif distance1 <= 75:
                     tarif = BASE_PRICE + 5 *2
-                elif distance1 <= 100:
+                elif distance1 <= 108 and distance2 <= 100:
                     tarif = BASE_PRICE + 5 *3
-                elif distance1 <= 125:
+                elif distance1 <= 140 and distance2 <= 100:
                     tarif = BASE_PRICE + 5 *4
-                elif distance1 <= 150:
+                elif distance1 <= 170 and distance2 <= 100:
                     tarif = BASE_PRICE + 5 *5
                 else:
                     tarif = OUT_PRICE
