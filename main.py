@@ -5,9 +5,10 @@ import base64
 import time
 
 DATE = "16/01/2026"
-VERSION = "2.2.0"
+VERSION = "2.2.1"
 BASE_PRICE = 70
 OUT_PRICE = 100
+# debug = True
 debug = False
 
 # Fonction pour ajouter l'image de fond locale
@@ -125,7 +126,7 @@ if nom_ville:
                     tarif = BASE_PRICE + 5 *2
                 elif distance1 <= 108 and distance2 <= 100:
                     tarif = BASE_PRICE + 5 *3
-                elif distance1 <= 140 and distance2 <= 100:
+                elif distance1 <= 145 and distance2 <= 100:
                     tarif = BASE_PRICE + 5 *4
                 elif distance1 <= 170 and distance2 <= 100:
                     tarif = BASE_PRICE + 5 *5
