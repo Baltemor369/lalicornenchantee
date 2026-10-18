@@ -1,0 +1,8 @@
+services:
+  app:
+    build: .
+    container_name: lalicornenchantee
+    restart: unless-stopped
+    # Exposé uniquement en local : le reverse proxy (Nginx/Caddy) fait le lien avec l'extérieur
+    ports:
+      - "127.0.0.1:8501:8501"
