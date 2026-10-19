@@ -1,8 +1,4 @@
 .git
-.env
-.devcontainer
-__pycache__
-run.bat
-test.py
-main_2.py
 *.md
+update.sh
+docker-compose*.yml

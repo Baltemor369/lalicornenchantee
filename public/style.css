@@ -1,0 +1,219 @@
+:root {
+    --texte: #2e1a47;
+    --texte-doux: #6b5a80;
+    --accent: #8a4fd8;
+    --accent-2: #e0559b;
+    --bord: #dccdf0;
+    --survol: #f3ebfc;
+    --carte: rgba(255, 255, 255, 0.82);
+    --erreur: #b3261e;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; min-height: 100%; }
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    padding: 24px 6vw 64px;
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+    color: var(--texte);
+    background-color: #f2b8d3;
+}
+
+/* Fond fixe (pseudo-élément : background-attachment: fixed est mal géré sur mobile) */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: url("bg.png") center / cover no-repeat;
+}
+
+.carte {
+    width: 100%;
+    max-width: 440px;
+    padding: 28px 28px 20px;
+    border-radius: 20px;
+    background: var(--carte);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 40px rgba(60, 20, 90, 0.25);
+}
+
+.marque {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+h1 {
+    margin: 4px 0 8px;
+    font-size: 28px;
+    line-height: 1.2;
+}
+
+.aide {
+    margin: 0 0 18px;
+    color: var(--texte-doux);
+    font-size: 15px;
+}
+
+.recherche { position: relative; }
+
+input {
+    width: 100%;
+    padding: 14px 16px;
+    font: inherit;
+    font-size: 18px;
+    color: var(--texte);
+    background: #fff;
+    border: 2px solid var(--bord);
+    border-radius: 12px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(138, 79, 216, 0.18);
+}
+
+#suggestions {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    z-index: 10;
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+    background: #fff;
+    border: 1px solid var(--bord);
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(60, 20, 90, 0.2);
+}
+
+#suggestions li {
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    line-height: 1.3;
+}
+
+#suggestions li:hover,
+#suggestions li[aria-selected="true"] { background: var(--survol); }
+
+#suggestions .nom { font-weight: 600; }
+#suggestions .cp { color: var(--texte-doux); }
+#suggestions .detail {
+    display: block;
+    font-size: 13px;
+    color: var(--texte-doux);
+}
+
+#suggestions li.lu {
+    color: var(--accent);
+    font-size: 15px;
+}
+
+.resultat {
+    margin-top: 20px;
+    padding: 18px;
+    text-align: center;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid var(--bord);
+}
+
+.resultat p { margin: 0; }
+
+.resultat .lieu {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.resultat .prix {
+    margin: 4px 0;
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(90deg, var(--accent-2), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.resultat .distances {
+    font-size: 14px;
+    color: var(--texte-doux);
+}
+
+.resultat.chargement { color: var(--texte-doux); }
+.resultat.erreur { color: var(--erreur); }
+
+.grille {
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+.grille summary {
+    cursor: pointer;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.grille table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+.grille td {
+    padding: 6px 4px;
+    border-bottom: 1px solid var(--bord);
+}
+
+.grille td:last-child {
+    text-align: right;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+footer {
+    position: fixed;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 14px;
+    font-size: 13px;
+    color: var(--texte);
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+    body {
+        align-items: flex-start;
+        padding: 16px 16px 72px;
+    }
+    .carte { max-width: none; padding: 22px 18px 16px; }
+    h1 { font-size: 24px; }
+    .resultat .prix { font-size: 44px; }
+}

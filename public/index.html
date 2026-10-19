@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Equiselle · Tarif de déplacement</title>
+    <meta name="description" content="Calcul du tarif de déplacement Equiselle selon la commune.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦄</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <main class="carte">
+        <p class="marque">Equiselle</p>
+        <h1>Tarif de déplacement</h1>
+        <p class="aide">Tapez le nom de la commune, puis choisissez-la dans la liste.</p>
+
+        <div class="recherche">
+            <label for="ville" class="sr-only">Commune</label>
+            <input id="ville" type="text" placeholder="Ex. : Lunéville, Metz, Esch-sur-Alzette…"
+                   autocomplete="off" spellcheck="false" autofocus
+                   role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="suggestions">
+            <ul id="suggestions" role="listbox" hidden></ul>
+        </div>
+
+        <div id="resultat" class="resultat" aria-live="polite" hidden></div>
+
+        <details class="grille">
+            <summary>Voir la grille tarifaire</summary>
+            <table id="grille">
+                <tbody></tbody>
+            </table>
+        </details>
+    </main>
+
+    <footer><span id="version"></span> · ©equiselle54</footer>
+</body>
+</html>

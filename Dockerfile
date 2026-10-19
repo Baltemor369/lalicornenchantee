@@ -1,22 +1,15 @@
-FROM python:3.11-slim
+FROM caddy:2.11-alpine
 
-ENV PYTHONDONTWRITEBYTECODE=1 \
-    PYTHONUNBUFFERED=1
+# Caddy n'a pas besoin d'écrire ailleurs que dans /tmp pour servir des fichiers statiques
+ENV XDG_CONFIG_HOME=/tmp/config \
+    XDG_DATA_HOME=/tmp/data
 
-WORKDIR /app
+COPY Caddyfile /etc/caddy/Caddyfile
+COPY public/ /srv/
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY .streamlit ./.streamlit
-COPY main.py bg.png ./
-
-RUN useradd --create-home appuser
-USER appuser
+USER nobody
 
 EXPOSE 8501
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-    CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health')" || exit 1
-
-CMD ["streamlit", "run", "main.py"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+    CMD wget -q --spider http://127.0.0.1:8501/ || exit 1

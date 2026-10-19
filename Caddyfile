@@ -1,0 +1,20 @@
+{
+	admin off
+	auto_https off
+}
+
+:8501 {
+	root * /srv
+	encode gzip
+
+	header {
+		Content-Security-Policy "default-src 'self'; connect-src https://api-adresse.data.gouv.fr https://nominatim.openstreetmap.org; img-src 'self' data:; style-src 'self'; script-src 'self'; frame-ancestors 'none'"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+	header /bg.png Cache-Control "public, max-age=604800"
+	@pages path / /index.html /app.js /style.css
+	header @pages Cache-Control "no-cache"
+
+	file_server
+}

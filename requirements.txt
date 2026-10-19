@@ -1,2 +1,0 @@
-geopy==2.5.0
-streamlit==1.66.0
